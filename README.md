@@ -1,0 +1,1 @@
+# Welcome to your Money Manager app 👋
