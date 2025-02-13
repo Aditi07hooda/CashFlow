@@ -16,6 +16,7 @@
     "express_backend": "file:",
     "jsonwebtoken": "^9.0.2",
     "node": "^22.14.0",
+    "nodemon": "^3.1.9",
     "zod": "^3.24.2"
   }
 }
