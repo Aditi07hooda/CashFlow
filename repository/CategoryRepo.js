@@ -9,6 +9,10 @@ const CategoryRepo = {
     return await Category.findByPk(id);
   },
 
+  getAll: async () => {
+    return await Category.findAll();
+  },
+
   create: async (data) => {
     return await Category.create(data);
   },

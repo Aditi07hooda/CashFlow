@@ -1,6 +1,14 @@
 import Transaction from "../models/transactionModel.js";
 
 const TransactionRepo = {
+  create: async (transactionData) => {
+    return await Transaction.create(transactionData);
+  },
+
+  delete: async (transactionId) => {
+    return await Transaction.destroy({ where: { id: transactionId } });
+  },
+  
   findByUserAndCategory: async (userId, categoryId) => {
     return await Transaction.findAll({ where: { user_id: userId, category_id: categoryId } });
   },

@@ -47,7 +47,7 @@ app.use("/", userRoutes);
 app.use("/budget", authenticateJWT, budgetRoutes);
 app.use("/transaction", authenticateJWT, transactionRoutes);
 app.use("/notes", authenticateJWT, notesRoutes);
-app.use("/category", authenticateJWT, categoryRoutes);
+app.use("/", categoryRoutes);
 
 app.listen(5000, () => {
   console.log("server is running on port 5000");
