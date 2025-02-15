@@ -1,4 +1,4 @@
-import CategoryRepo from "../repositoryCategoryRepo.js";
+import CategoryRepo from "../repository/CategoryRepo.js";
 
 const CategoryService = {
   saveCategory: async (category) => {
