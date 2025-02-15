@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
-import User from "./user.model.js";
-import Category from "./category.model.js";
+import User from "./userModel.js";
+import Category from "./categoryModel.js";
 
 const Transaction = sequelize.define("Transaction", {
   id: {
