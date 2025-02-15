@@ -1,23 +1,15 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
+import User from "./user.model.js";
 
-const User = sequelize.define("User", {
+const Notes = sequelize.define("Notes", {
   id: {
     type: DataTypes.BIGINT,
     autoIncrement: true,
     primaryKey: true,
   },
-  username: {
-    type: DataTypes.STRING(500),
-  },
-  password: {
+  note: {
     type: DataTypes.STRING,
-    allowNull: false,
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -29,4 +21,6 @@ const User = sequelize.define("User", {
   },
 });
 
-export default User;
+Notes.belongsTo(User, { foreignKey: "user_id" });
+
+export default Notes;
