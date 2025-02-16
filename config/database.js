@@ -1,10 +1,17 @@
 import { Sequelize } from "sequelize";
+import dotenv from "dotenv";
 
-const sequelize = new Sequelize("MoneyManager", "postgres", "071003", {
-  host: "localhost",
+dotenv.config();
+
+const sequelize = new Sequelize(process.env.DB_URL, {
   dialect: "postgres",
-  port: "5432",
   logging: true,
+  dialectOptions: {
+    ssl: {
+      require: true, // Required for Neon database
+      rejectUnauthorized: false, // Set to false if using self-signed SSL certificates
+    },
+  },
 });
 
 export default sequelize;
