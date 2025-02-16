@@ -1,15 +1,15 @@
 import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config(); // Load environment variables
 
 const sequelize = new Sequelize(process.env.DB_URL, {
-  dialect: "postgres",
+  dialect: "postgres", // Ensure dialect is correct
   logging: true,
   dialectOptions: {
     ssl: {
-      require: true, // Required for Neon database
-      rejectUnauthorized: false, // Set to false if using self-signed SSL certificates
+      require: true, // Required for NeonDB
+      rejectUnauthorized: false, // Set to false for self-signed SSL
     },
   },
 });
