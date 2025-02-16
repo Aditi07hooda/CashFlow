@@ -1,15 +1,19 @@
 import { Sequelize } from "sequelize";
+import pkg from "pg"; // Explicitly import pg
 import dotenv from "dotenv";
 
-dotenv.config(); // Load environment variables
+dotenv.config();
+
+const { Client } = pkg; // Ensure pg is available
 
 const sequelize = new Sequelize(process.env.DB_URL, {
-  dialect: "postgres", // Ensure dialect is correct
+  dialect: "postgres",
+  dialectModule: pkg, // Manually specify pg module
   logging: true,
   dialectOptions: {
     ssl: {
-      require: true, // Required for NeonDB
-      rejectUnauthorized: false, // Set to false for self-signed SSL
+      require: true,
+      rejectUnauthorized: false, // For NeonDB
     },
   },
 });
