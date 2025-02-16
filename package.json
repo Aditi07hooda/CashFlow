@@ -23,6 +23,7 @@
     "pg-hstore": "^2.3.4",
     "pg-promise": "^11.10.2",
     "sequelize": "^6.37.5",
+    "serverless-http": "^3.2.0",
     "zod": "^3.24.2"
   }
 }
