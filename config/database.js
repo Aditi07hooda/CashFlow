@@ -9,7 +9,7 @@ const { Client } = pkg; // Ensure pg is available
 const sequelize = new Sequelize(process.env.DB_URL, {
   dialect: "postgres",
   dialectModule: pkg, // Manually specify pg module
-  logging: true,
+  logging: false,
   dialectOptions: {
     ssl: {
       require: true,
