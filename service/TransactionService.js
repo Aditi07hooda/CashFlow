@@ -184,22 +184,46 @@ const TransactionService = {
   },
 
   getTotalIncome: async (username, startDate, endDate) => {
+    if (!startDate || !endDate) {
+      throw new Error("Start date and end date are required.");
+    }
+
+    const parsedStartDate = new Date(startDate);
+    const parsedEndDate = new Date(endDate);
+
+    if (isNaN(parsedStartDate.getTime()) || isNaN(parsedEndDate.getTime())) {
+      throw new Error("Invalid date format. Expected format: YYYY-MM-DD");
+    }
+
     const transactions = await TransactionService.getAllTransactionsByDate(
       username,
-      startDate,
-      endDate
+      parsedStartDate,
+      parsedEndDate
     );
+
     return transactions
       .filter((txn) => txn.transactionType === "INCOME")
       .reduce((sum, txn) => sum + txn.amount, 0);
   },
 
   getTotalSpent: async (username, startDate, endDate) => {
+    if (!startDate || !endDate) {
+      throw new Error("Start date and end date are required.");
+    }
+
+    const parsedStartDate = new Date(startDate);
+    const parsedEndDate = new Date(endDate);
+
+    if (isNaN(parsedStartDate.getTime()) || isNaN(parsedEndDate.getTime())) {
+      throw new Error("Invalid date format. Expected format: YYYY-MM-DD");
+    }
+
     const transactions = await TransactionService.getAllTransactionsByDate(
       username,
-      startDate,
-      endDate
+      parsedStartDate,
+      parsedEndDate
     );
+
     return transactions
       .filter((txn) => txn.transactionType === "EXPENSE")
       .reduce((sum, txn) => sum + txn.amount, 0);

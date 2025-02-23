@@ -33,7 +33,7 @@ const UserService = {
       dateMin,
       dateMax
     );
-    const totalExpense = await TransactionService.getTotalSpending(
+    const totalExpense = await TransactionService.getTotalSpent(
       username,
       dateMin,
       dateMax
