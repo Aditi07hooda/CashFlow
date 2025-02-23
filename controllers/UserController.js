@@ -1,7 +1,7 @@
 import express from "express";
 import UserService from "../service/UserService.js";
 import JWTUtil from "../config/JwtUtil.js";
-import authenticateJWT from "../middleware/auth.middleware.js";
+import authenticateJWT from "../config/AuthMiddleware.js";
 
 const router = express.Router();
 
