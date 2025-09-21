@@ -27,6 +27,12 @@ public class MoneymanagerApplication {
 				System.setProperty("JWT_KEY", dotenv.get("JWT_KEY"));
 			if (dotenv.get("JWT_EXPIRY") != null)
 				System.setProperty("JWT_EXPIRY", dotenv.get("JWT_EXPIRY"));
+		} else {
+			System.setProperty("DB_URL", System.getenv("DB_URL"));
+			System.setProperty("DB_USER", System.getenv("DB_USER"));
+			System.setProperty("DB_PASSWORD", System.getenv("DB_PASSWORD"));
+			System.setProperty("JWT_KEY", System.getenv("JWT_KEY"));
+			System.setProperty("JWT_EXPIRY", System.getenv("JWT_EXPIRY"));
 		}
 
 		SpringApplication.run(MoneymanagerApplication.class, args);
