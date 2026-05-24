@@ -1,10 +1,10 @@
 import React from 'react'
-import AddTransactionsComponent from '@/components/transactions/AddTransactions';
+import TransactionModal from '@/components/transactions/TransactionModal';
 
 const AddTransactions = () => {
   return (
     <>
-     <AddTransactionsComponent /> 
+     
     </>
   )
 }

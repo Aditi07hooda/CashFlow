@@ -1,0 +1,31 @@
+export const CATEGORY_ICONS: Record<string, string> = {
+  // Income
+  Salary: "💰",
+  Freelancing: "💻",
+  Gift: "🎁",
+  Loan: "🏦",
+  Interest: "📈",
+  Paycheck: "💵",
+
+  // Expense
+  "Rent/Mortgage": "🏠",
+  Groceries: "🛒",
+  Utilities: "⚡",
+  "Dining Out": "🍽️",
+  Transportation: "🚗",
+  Insurance: "🛡️",
+  "Medical & Healthcare": "💊",
+  Clothing: "👕",
+  Entertainment: "🎬",
+  Subscriptions: "📺",
+  Education: "📚",
+  "Personal Care": "🧴",
+  Travel: "✈️",
+  "Gifts & Donations": "🎁",
+  "Home Maintenance": "🛠️",
+  "Vehicle Repair": "🔧",
+  "Debt/Loan Repayment": "💳",
+  Electronics: "💻",
+  "Savings/Investment": "📊",
+  Miscellaneous: "📦",
+};
