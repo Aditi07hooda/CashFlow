@@ -2,12 +2,15 @@ package com.aditi.moneymanager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @SpringBootApplication
+@EnableCaching
+@CrossOrigin(origins = "http://localhost:3000")
 public class MoneymanagerApplication {
-
 	public static void main(String[] args) {
 		String activeProfile = System.getProperty("spring.profiles.active", "local");
 
@@ -17,12 +20,12 @@ public class MoneymanagerApplication {
 					.ignoreIfMissing()
 					.load();
 
-			if (dotenv.get("DB_URL") != null)
-				System.setProperty("DB_URL", dotenv.get("DB_URL"));
+			if (dotenv.get("DB_URL_LOCAL") != null)
+				System.setProperty("DB_URL", dotenv.get("DB_URL_LOCAL"));
 			if (dotenv.get("DB_USER") != null)
-				System.setProperty("DB_USER", dotenv.get("DB_USER"));
-			if (dotenv.get("DB_PASSWORD") != null)
-				System.setProperty("DB_PASSWORD", dotenv.get("DB_PASSWORD"));
+				System.setProperty("DB_USER", dotenv.get("DB_USER_LOCAL"));
+			if (dotenv.get("DB_PASSWORD_LOCAL") != null)
+				System.setProperty("DB_PASSWORD", dotenv.get("DB_PASSWORD_LOCAL"));
 			if (dotenv.get("JWT_KEY") != null)
 				System.setProperty("JWT_KEY", dotenv.get("JWT_KEY"));
 			if (dotenv.get("JWT_EXPIRY") != null)
@@ -37,5 +40,4 @@ public class MoneymanagerApplication {
 
 		SpringApplication.run(MoneymanagerApplication.class, args);
 	}
-
 }

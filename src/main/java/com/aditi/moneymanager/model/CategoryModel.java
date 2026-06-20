@@ -24,4 +24,7 @@ public class CategoryModel {
     
     @Column(nullable = false)
     private String categoryName;
+
+    @Column(nullable = true)
+    private String type;
 }

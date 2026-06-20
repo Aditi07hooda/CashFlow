@@ -32,7 +32,7 @@ public class BudgetService {
     private CategoryRepo categoryRepo;
 
     @Transactional
-    public BudgetModel createBudget(Map<String, Object> payload) {
+    public BudgetModel createBudget(String username, Map<String, Object> payload) {
         // Validate amount
         Double amount = ((Number) payload.get("amount")).doubleValue();
         if (amount == null || amount <= 0) {
@@ -40,7 +40,6 @@ public class BudgetService {
         }
 
         // Fetch user
-        String username = (String) payload.get("username");
         if (username == null || username.isEmpty()) {
             throw new IllegalArgumentException("Username is required");
         }

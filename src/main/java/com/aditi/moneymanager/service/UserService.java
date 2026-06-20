@@ -1,5 +1,6 @@
 package com.aditi.moneymanager.service;
 
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -51,7 +52,7 @@ public class UserService implements UserDetailsService {
         return new UserPrincipal(user);
     }
 
-    public Map<String, Object> getUser(String username, String dateMinControl, String dateMaxControl) {
+    public Map<String, Object> getUserWithTransactionDetails(String username, String dateMinControl, String dateMaxControl) {
         Map<String, Object> map = new HashMap<>();
 
         UserModel user = repo.findByUsername(username);
@@ -64,6 +65,13 @@ public class UserService implements UserDetailsService {
         map.put("totalExpense", totalExpense);
         map.put("transactions", transactions);
         
+        return map;
+    }
+
+    public Map<String, Object> getUserInfo(String name) {
+        Map<String, Object> map = new HashMap<>();
+        UserModel user = repo.findByUsername(name);
+        map.put("user",user);
         return map;
     }
 
@@ -87,8 +95,7 @@ public class UserService implements UserDetailsService {
         try {
             UserDetails existingUser = loadUserByEmail(user.getEmail());
             if (encoder.matches(user.getPassword(), existingUser.getPassword())) {
-                UserModel userFound = repo.findByEmail(user.getEmail());
-                return userFound;
+                return repo.findByEmail(user.getEmail());
             }
             return null;
         } catch (UserNotFound e) {

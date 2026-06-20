@@ -125,7 +125,7 @@ public class TransactionService {
         TransactionModel transaction = new TransactionModel();
         transaction.setUser(user);
         transaction.setCategory(category);
-        transaction.setNote(payload.get("note") != null ? payload.get("note").toString() : null);
+        transaction.setNote(payload.get("description") != null ? payload.get("description").toString() : null);
         transaction.setAmount(amount);
         transaction.setTransactionDate(transactionDate);
         transaction.setTransactionType(type);

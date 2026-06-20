@@ -1,23 +1,21 @@
 package com.aditi.moneymanager.controller;
 
-import org.springframework.web.bind.annotation.RestController;
-
 import com.aditi.moneymanager.model.CategoryModel;
 import com.aditi.moneymanager.model.UserModel;
 import com.aditi.moneymanager.repo.UserRepo;
 import com.aditi.moneymanager.service.CategoryService;
 
-import jakarta.servlet.http.HttpServletResponse;
-
-import java.util.List;
-
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
+
 
 @RestController
 public class CategoryController {
@@ -29,8 +27,7 @@ public class CategoryController {
     private UserRepo userRepo;
 
     @PostMapping("/admin/category")
-    public ResponseEntity<CategoryModel> postMethodName(@RequestBody CategoryModel category,
-            HttpServletResponse response) {
+    public ResponseEntity<CategoryModel> createCategory(@RequestBody CategoryModel category) {
         CategoryModel cat = service.saveCategory(category);
         return ResponseEntity.ok(cat);
     }
@@ -42,11 +39,11 @@ public class CategoryController {
     }
 
     @GetMapping("/category")
-    public ResponseEntity<List<CategoryModel>> getAllCategoriesForUsers(@RequestParam String username) {
-         UserModel user = userRepo.findByUsername(username);
+    public ResponseEntity<List<CategoryModel>> getAllCategoriesForUsers(Authentication req) {
+         UserModel user = userRepo.findByUsername(req.getName());
 
         if (user == null) {
-            throw new IllegalArgumentException("User not found: " + username);
+            throw new IllegalArgumentException("User not found: " + req.getName());
         }
         List<CategoryModel> cat = service.getCategories();
         return ResponseEntity.ok(cat);

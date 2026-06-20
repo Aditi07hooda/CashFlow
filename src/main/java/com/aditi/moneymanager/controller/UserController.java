@@ -90,9 +90,15 @@ public class UserController {
         return ResponseEntity.ok(userReg);
     }
 
-    @GetMapping("/myaccount")
-    public ResponseEntity<Map<String, Object>> myAccount(@RequestParam String username, @RequestParam String minDateControl, @RequestParam String maxDateControl) {
-        Map<String, Object> map = service.getUser(username, minDateControl, maxDateControl);
+    @GetMapping("/mytransactions")
+    public ResponseEntity<Map<String, Object>> myAccount(Authentication req, @RequestParam String minDateControl, @RequestParam String maxDateControl) {
+        Map<String, Object> map = service.getUserWithTransactionDetails(req.getName(), minDateControl, maxDateControl);
+        return ResponseEntity.ok(map);
+    }
+
+    @GetMapping("/myInfo")
+    public ResponseEntity<Map<String, Object>> myInfo(Authentication req){
+        Map<String, Object> map = service.getUserInfo(req.getName());
         return ResponseEntity.ok(map);
     }
 }
