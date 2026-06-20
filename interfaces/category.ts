@@ -1,4 +1,4 @@
-export interface Category {
+export interface CategoryFormData {
   categoryId: string;
   categoryName: string;
   type: 'income' | 'expense';

@@ -8,6 +8,7 @@ import {
 import Modal from "@/components/ui/Modal";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
+import { CategoryColorsAvailable, NewCategoryIconsAvailable } from "@/data/categoryIcons";
 
 interface AddCategoryModalProps {
   isOpen: boolean;
@@ -31,9 +32,6 @@ interface AddCategoryModalProps {
       icon: string;
     }>
   >;
-
-  colorOptions: string[];
-  iconOptions: string[];
 }
 
 const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
@@ -43,8 +41,6 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
   editingCategory,
   form,
   setForm,
-  colorOptions,
-  iconOptions,
 }) => {
   return (
     <Modal
@@ -128,7 +124,7 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
           </label>
 
           <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
-            {colorOptions.map((color) => (
+            {CategoryColorsAvailable.map((color) => (
               <button
                 key={color}
                 type="button"
@@ -158,7 +154,7 @@ const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
           </label>
 
           <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
-            {iconOptions.map((icon) => (
+            {NewCategoryIconsAvailable.map((icon) => (
               <button
                 key={icon}
                 type="button"

@@ -1,28 +1,25 @@
 "use client";
 
 import { useState } from "react";
-
-import { Category } from "@/interfaces/category";
-import { Transaction } from "@/interfaces/transaction";
-
-import { MOCK_CATEGORIES, MOCK_TRANSACTIONS } from "@/data/mock";
+import { Category, TransactionFromAPI } from "@/interfaces/transaction";
 import CategoryTabsGrid from "./CategoryTabsGrid";
 import AddCategoryModal from "./AddCategoryModal";
 import CategoriesHeader from "./CategoryHeader";
 import CategoryCard from "./CategoryCard";
+import { useCategories } from "@/hooks/useCategories";
+import { useTransactions } from "@/hooks/useTransactions";
+import { CategoryFormData } from "@/interfaces/category";
 
 const CategoryComponent: React.FC = () => {
-  const [categories, setCategories] =
-    useState<Category[]>(MOCK_CATEGORIES);
+  const { data: categories = [] } = useCategories();
 
-  const [transactions] =
-    useState<Transaction[]>(MOCK_TRANSACTIONS);
+  const { transactions = [] } = useTransactions();
 
   const [isModalOpen, setIsModalOpen] =
     useState(false);
 
   const [editingCategory, setEditingCategory] =
-    useState<Category | null>(null);
+    useState<CategoryFormData | null>(null);
 
   const [activeTab, setActiveTab] = useState<
     "all" | "income" | "expense"
@@ -31,39 +28,9 @@ const CategoryComponent: React.FC = () => {
   const [form, setForm] = useState({
     name: "",
     type: "expense" as "income" | "expense",
-    color: "#3B82F6",
-    icon: "📦",
+    color: "#3B82F6" || null,
+    icon: "📦" || null,
   });
-
-  const colorOptions = [
-    "#EF4444",
-    "#F59E0B",
-    "#10B981",
-    "#3B82F6",
-    "#8B5CF6",
-    "#EC4899",
-    "#F97316",
-    "#14B8A6",
-  ];
-
-  const iconOptions = [
-    "💰",
-    "💼",
-    "🍔",
-    "🚗",
-    "🛍️",
-    "📄",
-    "🏠",
-    "💊",
-    "🎮",
-    "✈️",
-    "📱",
-    "👕",
-    "🎬",
-    "📚",
-    "☕",
-    "🎵",
-  ];
 
   const resetForm = () => {
     setForm({
@@ -81,35 +48,19 @@ const CategoryComponent: React.FC = () => {
   ) => {
     e.preventDefault();
 
-    const newCategory: Category = {
-      categoryId:
-        editingCategory?.categoryId ||
-        Date.now().toString(),
-
+    const newCategory: CategoryFormData = {
+      categoryId: editingCategory?.categoryId || Date.now().toString(),
       categoryName: form.name,
-
       type: form.type,
-
       color: form.color,
-
       icon: form.icon,
-
       isCustom: true,
     };
 
     if (editingCategory) {
-      setCategories(
-        categories.map((category) =>
-          category.categoryId === editingCategory.categoryId
-            ? newCategory
-            : category,
-        ),
-      );
+      // api call
     } else {
-      setCategories([
-        ...categories,
-        newCategory,
-      ]);
+      //api call
     }
 
     setIsModalOpen(false);
@@ -125,20 +76,14 @@ const CategoryComponent: React.FC = () => {
     setForm({
       name: category.categoryName,
       type: category.type,
-      color: category.color,
-      icon: category.icon,
     });
 
     setIsModalOpen(true);
   };
 
-  const handleDelete = (id: string) => {
-    const category = categories.find(
-      (c) => c.categoryId === id,
-    );
-
+  const handleDelete = (id: number) => {
     const isInUse = transactions.some(
-      (t) => t.category === category?.categoryName,
+      (t: TransactionFromAPI) => t.category.categoryId === id,
     );
 
     if (isInUse) {
@@ -155,11 +100,7 @@ const CategoryComponent: React.FC = () => {
 
     if (!confirmed) return;
 
-    setCategories(
-      categories.filter(
-        (category) => category.categoryId !== id,
-      ),
-    );
+    // api call
   };
 
   return (
@@ -202,8 +143,6 @@ const CategoryComponent: React.FC = () => {
         editingCategory={!!editingCategory}
         form={form}
         setForm={setForm}
-        colorOptions={colorOptions}
-        iconOptions={iconOptions}
       />
     </div>
   );

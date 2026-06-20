@@ -123,9 +123,9 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
           >
             <div className="flex items-center justify-center gap-2 mb-1">
               {formType === "income" ? (
-                <ArrowUpRight size={24} className="text-green-600" />
+                <ArrowDownRight size={24} className="text-green-600" />
               ) : (
-                <ArrowDownRight size={24} className="text-red-600" />
+                <ArrowUpRight size={24} className="text-red-600" />
               )}
 
               <span

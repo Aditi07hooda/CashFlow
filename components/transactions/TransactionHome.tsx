@@ -201,26 +201,26 @@ const TransactionHome: React.FC = () => {
 
             <button
               onClick={() => {
-                setTransactionType("expense");
+                setTransactionType("income");
                 setIsTransactionModalOpen(true);
               }}
               className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-green-500 to-green-600 hover:shadow-xl hover:scale-105 text-white rounded-lg font-medium transition-colors"
             >
               <Plus size={18} />
 
-              <span>Add Expense</span>
+              <span>Add Income</span>
             </button>
 
             <button
               onClick={() => {
-                setTransactionType("income");
+                setTransactionType("expense");
                 setIsTransactionModalOpen(true);
               }}
               className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-red-500 to-red-600 hover:shadow-xl hover:scale-105 text-white rounded-lg font-medium transition-colors"
             >
               <Plus size={18} />
 
-              <span>Add Income</span>
+              <span>Add Expense</span>
             </button>
           </div>
         </div>

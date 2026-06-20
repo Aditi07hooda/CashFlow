@@ -1,25 +1,19 @@
 import React from "react";
-import {
-  Edit2,
-  Tag,
-  Trash2,
-} from "lucide-react";
+import { Edit2, Tag, Trash2 } from "lucide-react";
 
 import Card from "@/components/ui/Card";
-import { Category } from "@/interfaces/category";
-import { Transaction } from "@/interfaces/transaction";
+import { Category, TransactionFromAPI } from "@/interfaces/transaction";
+import { CATEGORY_ICONS } from "@/data/categoryIcons";
 
 interface Props {
   categories: Category[];
-  transactions: Transaction[];
+  transactions: TransactionFromAPI[];
 
   activeTab: "all" | "income" | "expense";
-  setActiveTab: (
-    tab: "all" | "income" | "expense",
-  ) => void;
+  setActiveTab: (tab: "all" | "income" | "expense") => void;
 
   onEdit: (category: Category) => void;
-  onDelete: (id: string) => void;
+  onDelete: (id: number) => void;
 }
 
 const CategoryTabsGrid: React.FC<Props> = ({
@@ -36,13 +30,9 @@ const CategoryTabsGrid: React.FC<Props> = ({
     return c.type === activeTab;
   });
 
-  const incomeCount = categories.filter(
-    (c) => c.type === "income",
-  ).length;
+  const incomeCount = categories.filter((c) => c.type === "income").length;
 
-  const expenseCount = categories.filter(
-    (c) => c.type === "expense",
-  ).length;
+  const expenseCount = categories.filter((c) => c.type === "expense").length;
 
   return (
     <Card className="p-0 overflow-hidden">
@@ -88,57 +78,39 @@ const CategoryTabsGrid: React.FC<Props> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {filteredCategories.map((cat) => {
               const usageCount = transactions.filter(
-                (t) => t.category === cat.categoryName,
+                (t) => t.category.categoryId === cat.categoryId,
               ).length;
 
               return (
                 <div
                   key={cat.categoryId}
                   className="group relative bg-white rounded-xl border-2 hover:shadow-lg transition-all overflow-hidden"
-                  style={{
-                    borderColor: cat.color + "30",
-                  }}
                 >
-                  <div
-                    className="h-1.5"
-                    style={{
-                      backgroundColor: cat.color,
-                    }}
-                  />
+                  <div className="h-1.5" />
 
                   <div className="p-4">
                     <div className="flex items-start justify-between mb-3">
-                      <div
-                        className="w-14 h-14 rounded-xl flex items-center justify-center text-3xl"
-                        style={{
-                          backgroundColor:
-                            cat.color + "15",
-                        }}
-                      >
-                        {cat.icon}
+                      <div className="w-14 h-14 rounded-xl flex items-center justify-center text-3xl">
+                        {CATEGORY_ICONS[cat.categoryName] ?? "💳"}
                       </div>
 
-                      {cat.isCustom && (
+                      {/* {cat.isCustom && (
                         <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                           <button
-                            onClick={() =>
-                              onEdit(cat)
-                            }
+                            onClick={() => onEdit(cat)}
                             className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"
                           >
                             <Edit2 size={16} />
                           </button>
 
                           <button
-                            onClick={() =>
-                              onDelete(cat.categoryId)
-                            }
+                            onClick={() => onDelete(cat.categoryId)}
                             className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
                           >
                             <Trash2 size={16} />
                           </button>
                         </div>
-                      )}
+                      )} */}
                     </div>
 
                     <h3 className="font-semibold text-gray-900">
@@ -146,13 +118,9 @@ const CategoryTabsGrid: React.FC<Props> = ({
                     </h3>
 
                     <div className="flex items-center justify-between text-xs mt-2">
-                      <span className="text-gray-600">
-                        {cat.type}
-                      </span>
+                      <span className="text-gray-600">{cat.type}</span>
 
-                      <span className="text-gray-500">
-                        {usageCount} txns
-                      </span>
+                      <span className="text-gray-500">{usageCount} txns</span>
                     </div>
                   </div>
                 </div>
@@ -161,18 +129,11 @@ const CategoryTabsGrid: React.FC<Props> = ({
           </div>
         ) : (
           <div className="text-center py-12 text-gray-500">
-            <Tag
-              size={48}
-              className="mx-auto mb-3 opacity-30"
-            />
+            <Tag size={48} className="mx-auto mb-3 opacity-30" />
 
-            <p className="text-lg font-medium">
-              No categories found
-            </p>
+            <p className="text-lg font-medium">No categories found</p>
 
-            <p className="text-sm mt-1">
-              Create your first category
-            </p>
+            <p className="text-sm mt-1">Create your first category</p>
           </div>
         )}
       </div>
